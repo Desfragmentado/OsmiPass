@@ -2,7 +2,6 @@ services:
   - type: web
     name: OsmiPass
     env: node
-    plan: free
     region: oregon
     branch: main
     buildCommand: npm install && npm run build && npm run serve:ssr:BoleteraDSMFamilia
