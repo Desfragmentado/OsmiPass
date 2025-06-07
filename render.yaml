@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: OsmiPass
+    env: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm install && npm run build && npm run serve:ssr:BoleteraDSMFamilia
+    startCommand: node dist/boletera-dsmfamilia/server/server.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 10000
+        
