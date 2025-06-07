@@ -1,0 +1,251 @@
+/* Estilos principales con fondo de imagen */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: 
+    linear-gradient(rgba(20, 20, 20, 0.85), rgba(20, 20, 20, 0.85)),
+    url('/assets/image/img1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px 0;
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 1.5fr 1fr;
+    padding: 40px;
+  }
+}
+
+/* Estilos comunes para formulario y resumen */
+.payment-form, .order-summary {
+  background: rgba(48, 48, 48, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 768px) {
+  .payment-form, .order-summary {
+    padding: 20px 40px;
+  }
+}
+
+h2 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  position: relative;
+  font-weight: 600;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #e50914;
+}
+
+/* Estilos del formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #b3b3b3;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background: rgba(26, 26, 26, 0.8);
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #e50914;
+}
+
+/* Checkbox */
+.checkbox-group {
+  margin: 25px 0;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #e50914;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.terms-link {
+  color: #e50914;
+  text-decoration: none;
+  margin-left: 3px;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* Resumen de compra */
+.ticket-info {
+  border-bottom: 1px solid #444;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.ticket-info p, .price-details p {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  color: #b3b3b3;
+  font-size: 0.9rem;
+}
+
+.price-details {
+  margin-top: 20px;
+}
+
+.price-details .total {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #e50914;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #444;
+}
+
+/* Botones */
+button {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+}
+
+button:hover:not(:disabled) {
+  background: #ff1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+}
+
+button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Botón de Stripe específico */
+.stripe-button {
+  background: #635bff;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(99, 91, 255, 0.4);
+}
+
+.stripe-button:hover:not(:disabled) {
+  background: #4a42d6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 91, 255, 0.6);
+}
+
+.stripe-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Temporizador */
+.timer-section {
+  background: rgba(229, 9, 20, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.2); }
+  70% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}
+
+#countdown {
+  font-size: 1.8rem;
+  color: #e50914;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.time-warning {
+  color: #ff4444 !important;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Estilos para móviles */
+@media (max-width: 480px) {
+  .payment-form, .order-summary {
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  #countdown {
+    font-size: 1.5rem;
+  }
+}

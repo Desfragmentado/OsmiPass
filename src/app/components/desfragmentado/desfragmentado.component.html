@@ -1,0 +1,26 @@
+<div class="construction-container">
+  <!-- Preloader -->
+  <div class="preloader" [class.hidden]="isPreloaderHidden">
+    <div class="loading-animation">
+      <div class="skull">
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth"></div>
+      </div>
+      <h2>DESFRAGMENTADO</h2>
+      <p>Próximamente...</p>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div *ngIf="isPreloaderHidden" class="construction-content">
+    <h1>PÁGINA EN CONSTRUCCIÓN</h1>
+    <p>Estamos trabajando en algo increíble</p>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@GODesfragmentado" target="_blank">YouTube</a>
+      <a href="https://www.instagram.com/desfragmentado_pasiongdl" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>

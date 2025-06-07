@@ -1,0 +1,7 @@
+{
+  "public": "dist/boletera-dsmfamilia",
+  "clean_urls": true,
+  "rewrites": [
+    { "source": "**", "destination": "/index.html" }
+  ]
+}

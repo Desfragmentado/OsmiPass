@@ -1,0 +1,45 @@
+<div class="carousel" #carousel>
+  <div class="list" #slider>
+    <article 
+      class="item" 
+      *ngFor="let item of items; let i = index" 
+      [class.active]="i === currentIndex">
+      
+      <img [src]="item.img" [alt]="item.author" loading="lazy">
+
+      <div class="content">
+        <h4 class="author">{{item.author}}</h4>
+        <h3 class="title">{{item.title}}</h3>
+        <p class="topic">{{item.topic}}</p>
+        <p class="des">{{item.description}}</p>
+
+        <div class="buttons">
+          <button (click)="verMas(item)">Ver más</button>
+          <button (click)="reserveTicket(item)">Reservar boleto</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="thumbnail" #thumbnailBorder>
+    <div 
+      class="item" 
+      *ngFor="let item of items; let i = index" 
+      [class.active]="i === currentIndex"
+      (click)="goToSlide(i)">
+      
+      <img [src]="item.img" [alt]="item.author" loading="lazy">
+      <div class="content">
+        <h4 class="title">{{item.title}}</h4>
+        <p class="description">{{item.topic}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrows">
+    <button class="prev" (click)="prevSlide()">‹</button>
+    <button class="next" (click)="nextSlide()">›</button>
+  </div>
+
+  <div class="time"></div>
+</div>

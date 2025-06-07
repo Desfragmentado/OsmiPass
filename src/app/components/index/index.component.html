@@ -1,0 +1,212 @@
+<div class="loader">
+    <img src="/assets/image/logo.png" alt="DSM Logo" class="loader-logo"> 
+    <div class="loader-bar"></div>
+  </div>
+
+<nav class="navbar">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand">
+      <img src="/assets/image/founder.jpg" alt="DSM Logo" class="nav-logo">
+      <span>DSM FAMILIA</span>
+    </a>
+    
+    <div class="menu-btn" (click)="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <ul class="nav-menu" [class.active]="menuActive">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li class="nav-cta"><a (click)="navigateToBoletera()">Boletos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>IMPULSANDO EL TALENTO URBANO</h1>
+    <p>Descubre la nueva generación musical en México</p>
+      <a (click)="navigateToBoletera()" class="btn btn-outline">Próximos Eventos</a>
+  </div>
+  
+  <a href="#nosotros" class="scroll-down">
+    <i class="fas fa-chevron-down"></i>
+  </a>
+</header>
+
+<section class="about-section" id="nosotros">
+  <div class="container">
+    <div>
+      <h2>NUESTRA HISTORIA</h2>
+      <p>Conoce el origen de DSM Familia</p>
+    </div>
+    
+    <div class="about-content">
+      <div>
+        <h3>El Sueño de Iker</h3>
+        <p>DSM Familia nació en 2024 como el sueño compartido de jóvenes apasionados por la música urbana en Guadalajara. Iker, con solo 17 años, tomó la responsabilidad de mantener vivo este proyecto ya que prefirió el dinero antes que la amistad.</p>
+        <p>Hoy, DSM Familia es un referente en el apoyo al talento juvenil mexicano, demostrando que con pasión y perseverancia, los sueños pueden convertirse en realidad.</p>
+        
+        <div class="mission-vision">
+          <div>
+            <i class="fas fa-bullseye"></i>
+            <h4>Misión</h4>
+            <p>Impulsar el talento juvenil y apoyar a jóvenes mexicanos en la realización de sus sueños musicales.</p>
+          </div>
+          <div>
+            <i class="fas fa-eye"></i>
+            <h4>Visión</h4>
+            <p>Ser el principal sello musical de México reconocido por transformar el panorama urbano.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="image-frame">
+          <img src="/assets/image/founder.jpg" alt="Fundador de DSM Familia" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="events-section" id="eventos">
+  <div class="container">
+    <div>
+      <h2>PRÓXIMOS EVENTOS</h2>
+      <p>Vive la experiencia DSM Familia</p>
+    </div>
+    
+    <div class="events-timeline">
+      <div class="event-card" *ngFor="let event of events; let i = index">
+        <div class="event-date">
+          <span class="date-day">{{event.day}}</span>
+          <span class="date-month">{{event.month}}</span>
+        </div>
+        <div class="event-info">
+          <h3>{{event.title}}</h3>
+          <div class="event-meta">
+            <span><i class="fas fa-map-marker-alt"></i> {{event.location}}</span>
+            <span><i class="fas fa-clock"></i> {{event.time}}</span>
+          </div>
+          <p>{{event.description}}</p>
+          <a (click)="navigateToBoletera()" class="btn btn-primary">Comprar Ahora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tickets-section" id="ventadeboletos">
+  <div class="container">
+    <div class="tickets-content">
+      <div>
+        <h2>NO TE PIERDAS NUESTROS EVENTOS</h2>
+        <p>Adquiere tus boletos ahora y sé parte de la experiencia DSM Familia. Obtén acceso preferencial a nuestros eventos exclusivos.</p>
+        <ul class="tickets-benefits">
+          <li *ngFor="let benefit of benefits">
+            <i class="fas fa-check-circle"></i> {{benefit}}
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <div class="ticket-card">
+          <h3>DSM URBAN FEST 2024</h3>
+          <div class="ticket-price">
+            <span class="price">$450</span>
+            <span class="early-bird">Early Bird</span>
+          </div>
+          <p>General Admission</p>
+          <a (click)="navigateToBoletera()" class="btn btn-primary">Comprar Ahora</a>
+          <div class="ticket-countdown">
+            <p>Oferta termina en:</p>
+            <div class="countdown">
+              <span id="days">{{countdown.days}}</span>d
+              <span id="hours">{{countdown.hours}}</span>h
+              <span id="minutes">{{countdown.minutes}}</span>m
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contacto">
+  <div class="container">
+    <div>
+      <h2>CONTÁCTANOS</h2>
+      <p>¿Quieres colaborar con nosotros?</p>
+    </div>
+    
+    <div class="contact-content">
+      <div>
+        <div class="info-item" *ngFor="let info of contactInfo">
+          <i [class]="'fas fa-' + info.icon"></i>
+          <div>
+            <h4>{{info.title}}</h4>
+            <p>{{info.value}}</p>
+          </div>
+        </div>
+        
+        <div class="social-media">
+          <h4>Síguenos</h4>
+          <div class="social-links">
+            <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank">
+              <i [class]="'fab fa-' + social.icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <form (submit)="submitContactForm($event)">
+          <div class="form-group">
+            <input type="text" [(ngModel)]="contactForm.name" name="name" placeholder="Nombre completo" required>
+          </div>
+          <div class="form-group">
+            <input type="email" [(ngModel)]="contactForm.email" name="email" placeholder="Correo electrónico" required>
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="contactForm.subject" name="subject" placeholder="Asunto">
+          </div>
+          <div class="form-group">
+            <textarea [(ngModel)]="contactForm.message" name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+            <span *ngIf="!isSubmitting">Enviar Mensaje</span>
+            <span *ngIf="isSubmitting"><i class="fas fa-spinner fa-spin"></i> Enviando...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-content">
+      <div>
+        <h3>ÚNETE A LA FAMILIA</h3>
+        <p>Suscríbete para recibir noticias exclusivas, lanzamientos y descuentos especiales.</p>
+      </div>
+      <div>
+        <form (submit)="submitNewsletter($event)">
+          <input type="email" [(ngModel)]="newsletterEmail" name="newsletterEmail" placeholder="Tu correo electrónico" required>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubscribing">
+            <span *ngIf="!isSubscribing">Suscribirme</span>
+            <span *ngIf="isSubscribing"><i class="fas fa-spinner fa-spin"></i> Procesando...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<a href="#" class="back-to-top" (click)="scrollToTop($event)">
+  <i class="fas fa-arrow-up"></i>
+</a>
