@@ -6,39 +6,23 @@ import { fileURLToPath } from 'node:url';
 import bootstrap from './main.server';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-const browserDistFolder = resolve(serverDistFolder, '../browser');
+const browserDistFolder = resolve(serverDistFolder, '../browser'); // <<< Corrige esto a '../browser'
 const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// Middleware para archivos estáticos
+app.use(express.static(browserDistFolder, {
+  maxAge: '1y',
+  index: false // Importante para SSR
+}));
 
-/**
- * Serve static files from /browser
- */
-app.get(
-  '**',
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: 'index.html'
-  }),
-);
+// API routes pueden ir aquí si las necesitas
+// app.get('/api/**', ...);
 
-/**
- * Handle all other requests by rendering the Angular application.
- */
-app.get('**', (req, res, next) => {
+// Manejo de todas las rutas con SSR
+app.get('*', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
   commonEngine
@@ -53,14 +37,11 @@ app.get('**', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-/**
- * Start the server if this module is the main entry point.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
+// Iniciar servidor
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
+    console.log(`Server listening on http://localhost:${port}`);
   });
 }
 
