@@ -9,7 +9,7 @@
   "test": "ng test",
   "dev:ssr": "ng run BoleteraDSMFamilia:serve-ssr",
   "serve:ssr": "node dist/boletera-dsmfamilia/server/server.mjs",
-  "build:ssr": "ng build && ng run BoleteraDSMFamilia:server"
+  "build:ssr": "ng build --configuration=production"
 },
 
     "engines": {
