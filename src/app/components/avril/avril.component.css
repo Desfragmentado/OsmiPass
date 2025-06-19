@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background-color: #f8f8f8;
+  background-color: floralwhite;
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -40,7 +40,7 @@
 }
 
 .event-details {
-  background-color: white;
+  background-color: peru;
   padding: 1.2rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,7 +56,7 @@
 }
 
 .ticket-selection {
-  background-color: white;
+  background-color: blueviolet;
   padding: 1.2rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -79,7 +79,7 @@
   border: 1.5px solid #d40078;
   border-radius: 8px;
   font-size: 1rem;
-  background-color: white;
+  background-color: violet;
   color: #333;
   cursor: pointer;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -107,8 +107,8 @@
 }
 
 .purchase-button {
-  background-color: #d40078;
-  color: white;
+  background-color: red;
+  color: floralwhite;
   border: none;
   padding: 14px 24px;
   font-size: 1.1rem;
@@ -140,12 +140,13 @@
 .ticket {
   width: 100%;
   max-width: 350px;
-  background: white;
+  background: plum;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   position: relative;
   margin: 1rem 0;
+  color: #000;
 }
 
 .ticket-header {
