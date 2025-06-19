@@ -80,11 +80,16 @@ export class PagoComponent implements OnInit, OnDestroy {
       const stripe = await this.stripePromise;
       if (!stripe) throw new Error('Stripe no se inicializó correctamente');
 
+      const amountInCents = Math.round(this.getTotalAmount() * 100);
+      if (isNaN(amountInCents) || amountInCents <= 0) {
+        throw new Error('El monto total no es válido');
+      }
+
       const payload = {
         customerName: this.customerName,
         customerEmail: this.customerEmail,
         metadata: {
-          monto: Math.round(this.getTotalAmount() * 100),
+          monto: amountInCents.toString(),
           folio: this.ticketData.folio,
           event: this.ticketData.event.title,
           venue: this.ticketData.event.venue,
@@ -92,7 +97,9 @@ export class PagoComponent implements OnInit, OnDestroy {
         }
       };
 
-      const response = await fetch('http://localhost:3333/api/pagos/checkout', {
+      console.log('Enviando payload al backend:', payload);
+
+      const response = await fetch('http://localhost:3333/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,17 +108,35 @@ export class PagoComponent implements OnInit, OnDestroy {
         body: JSON.stringify(payload)
       });
 
-      const data = await response.json();
-
-      if (!response.ok || !data.id) {
-        throw new Error(data.error || 'Error al crear sesión de pago');
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error del backend:', errorData);
+        throw new Error(errorData.error || 'Error al crear sesión de pago');
       }
 
+      const data = await response.json();
+      console.log('Respuesta del backend:', data);
+
+      if (!data.id) {
+        throw new Error('No se recibió un ID de sesión de Stripe');
+      }
+
+      // Opción 1: Redirección directa si hay URL
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+
+      // Opción 2: Redirección con Stripe.js
       const result = await stripe.redirectToCheckout({ sessionId: data.id });
-      if (result.error) throw new Error(result.error.message);
+      
+      if (result.error) {
+        console.error('Error de redirección a Stripe:', result.error);
+        throw new Error(result.error.message || 'Error al redirigir a Stripe');
+      }
 
     } catch (error: any) {
-      console.error('Error al procesar pago:', error);
+      console.error('Error completo:', error);
       Swal.fire({
         title: 'Error',
         text: `No se pudo procesar el pago: ${error.message || 'Error desconocido'}`,

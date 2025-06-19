@@ -1,56 +1,88 @@
-import { Server } from 'socket.io';
-import http from 'http';
-import express from 'express';
+// src/app/services/socket.service.ts
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+import { environment } from '../environments/environment';
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:4200",
-    methods: ["GET", "POST"]
+@Injectable({
+  providedIn: 'root'
+})
+export class SocketService implements OnDestroy {
+  private socket: Socket;
+  private listeners = new Map<string, (...args: any[]) => void>();
+
+  constructor(private ngZone: NgZone) {
+    this.socket = io(environment.socketUrl, {
+      transports: ['websocket'], // Fuerza WebSocket para mejor rendimiento
+      autoConnect: true,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
+
+    // Manejar eventos de conexión/desconexión
+    this.socket.on('connect', () => {
+      this.ngZone.run(() => {
+        console.log('Conectado al servidor Socket.IO');
+      });
+    });
+
+    this.socket.on('disconnect', () => {
+      this.ngZone.run(() => {
+        console.log('Desconectado del servidor Socket.IO');
+      });
+    });
   }
-});
 
-const activeSessions = new Map<string, { folio: string, timeout: NodeJS.Timeout }>();
+  // Método para reservar folio
+  reserveFolio(folio: string): void {
+    this.socket.emit('reserveFolio', folio);
+  }
 
-io.on('connection', (socket) => {
-  console.log('Cliente conectado:', socket.id);
+  // Método para confirmar pago
+  confirmPayment(folio: string): void {
+    this.socket.emit('confirmPayment', folio);
+  }
 
-  socket.on('reserveFolio', (folio: string) => {
-    if ([...activeSessions.values()].some(session => session.folio === folio)) {
-      socket.emit('folioExists', { folio });
-      return;
+  // Métodos para escuchar eventos
+  onFolioReserved(callback: (data: { folio: string }) => void): void {
+    this.registerListener('folioReserved', callback);
+  }
+
+  onFolioExists(callback: (data: { folio: string }) => void): void {
+    this.registerListener('folioExists', callback);
+  }
+
+  onFolioExpired(callback: (data: { folio: string }) => void): void {
+    this.registerListener('folioExpired', callback);
+  }
+
+  onPaymentConfirmed(callback: (data: { folio: string }) => void): void {
+    this.registerListener('paymentConfirmed', callback);
+  }
+
+  // Método privado para registrar listeners
+  private registerListener(event: string, callback: (...args: any[]) => void): void {
+    // Remover listener anterior si existe
+    const existingListener = this.listeners.get(event);
+    if (existingListener) {
+      this.socket.off(event, existingListener);
     }
 
-    const timeout = setTimeout(() => {
-      activeSessions.delete(socket.id);
-      socket.emit('folioExpired', { folio });
-    }, 5 * 60 * 1000);
+    // Crear nuevo listener que ejecuta en la zona de Angular
+    const ngZoneCallback = (...args: any[]) => {
+      this.ngZone.run(() => callback(...args));
+    };
 
-    activeSessions.set(socket.id, { folio, timeout });
-    socket.emit('folioReserved', { folio });
-  });
+    this.socket.on(event, ngZoneCallback);
+    this.listeners.set(event, ngZoneCallback);
+  }
 
-  socket.on('confirmPayment', (folio: string) => {
-    const session = activeSessions.get(socket.id);
-    if (session && session.folio === folio) {
-      clearTimeout(session.timeout);
-
-      // Aquí iría la lógica de pago como completado en la DBZ
-      socket.emit('paymentConfirmed', { folio });
-    }
-  });
-
-  socket.on('disconnect', () => {
-    const session = activeSessions.get(socket.id);
-    if (session) {
-      clearTimeout(session.timeout);
-      activeSessions.delete(socket.id);
-    }
-  });
-});
-
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Servidor WebSocket escuchando en puerto ${PORT}`);
-});
+  // Limpieza al destruir el servicio
+  ngOnDestroy(): void {
+    this.socket.disconnect();
+    this.listeners.forEach((listener, event) => {
+      this.socket.off(event, listener);
+    });
+    this.listeners.clear();
+  }
+}

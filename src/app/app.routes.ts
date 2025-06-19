@@ -7,6 +7,7 @@ import { DesfragmentadoComponent } from './components/desfragmentado/desfragment
 import { CkanComponent } from './components/ckan/ckan.component';
 import { DefraComponent } from './components/defra/defra.component';
 import { OsmarhaComponent } from './components/osmarha/osmarha.component';
+import { PagoExitosoComponent } from './components/pago-exitoso/pago-exitoso.component';
 
 export const routes: Routes = [
   { path: '', component: IndexComponent, pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'defra', component: DefraComponent },
   { path: 'osmarha', component: OsmarhaComponent },
   { path: 'pago', component: PagoComponent },
+  { path: 'pago-exitoso', component: PagoExitosoComponent },
   { path: 'desfragmentado', component: DesfragmentadoComponent },
   { path: '**', redirectTo: '' }
 ];
