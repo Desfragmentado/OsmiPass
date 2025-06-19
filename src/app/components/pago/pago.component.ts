@@ -20,10 +20,10 @@ export class PagoComponent implements OnInit, OnDestroy {
   customerEmail: string = '';
   termsAccepted: boolean = false;
   loading: boolean = false;
+  timeLeft: number = 300; // Cambiado a público para el template
 
   private socket!: Socket;
   private timerInterval!: ReturnType<typeof setInterval>;
-  private timeLeft: number = 300;
   private stripePromise = loadStripe('pk_test_51RN8nbDnO1YLWFfdBorzwum7sGUax7qIz2UcswzY1ioFouTPJX8qnGt73W8YhUQpKqXfXY5PYruAWmTEgmpvLM6E00BQHH3JGd');
 
   constructor(
@@ -54,6 +54,13 @@ export class PagoComponent implements OnInit, OnDestroy {
     if (this.socket?.connected) {
       this.socket.disconnect();
     }
+  }
+
+  // Nuevo método para formatear el tiempo
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
 
   isFormValid(): boolean {
@@ -189,12 +196,9 @@ export class PagoComponent implements OnInit, OnDestroy {
   }
 
   private updateTimerDisplay(): void {
-    const minutes = Math.floor(this.timeLeft / 60);
-    const seconds = this.timeLeft % 60;
     const display = document.getElementById('countdown');
-
     if (display) {
-      display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      display.textContent = this.formatTime(this.timeLeft);
       if (this.timeLeft <= 60) {
         display.classList.add('time-warning');
       }
@@ -205,9 +209,9 @@ export class PagoComponent implements OnInit, OnDestroy {
     clearInterval(this.timerInterval);
     Swal.fire({
       title: '¡Tiempo agotado!',
-      text: 'La sesión ha expirado.',
+      text: 'La sesión ha expirado. Serás redirigido al inicio',
       icon: 'error',
-      confirmButtonText: 'Volver al inicio'
+      confirmButtonText: 'Entendido'
     }).then(() => {
       this.router.navigate(['/']);
     });

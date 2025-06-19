@@ -1,45 +1,62 @@
-<div class="carousel" #carousel>
-  <div class="list" #slider>
+<div class="carousel-container" #carousel>
+  <div class="carousel-list" #slider>
     <article 
-      class="item" 
+      class="carousel-item" 
       *ngFor="let item of items; let i = index" 
       [class.active]="i === currentIndex">
       
-      <img [src]="item.img" [alt]="item.author" loading="lazy">
+      <img [src]="item.img" [alt]="item.author" loading="lazy" class="carousel-image">
 
-      <div class="content">
-        <h4 class="author">{{item.author}}</h4>
-        <h3 class="title">{{item.title}}</h3>
-        <p class="topic">{{item.topic}}</p>
-        <p class="des">{{item.description}}</p>
+      <div class="carousel-content">
+        <h4 class="carousel-author">{{item.author}}</h4>
+        <h2 class="carousel-title">{{item.title}}</h2>
+        <p class="carousel-topic">{{item.topic}}</p>
+        <p class="carousel-description">{{item.description}}</p>
 
-        <div class="buttons">
-          <button (click)="verMas(item)">Ver más</button>
-          <button (click)="reserveTicket(item)">Reservar boleto</button>
+        <div class="carousel-buttons">
+          <button class="btn-details" (click)="verMas(item)">Ver más</button>
+          <button class="btn-reserve" (click)="reserveTicket(item)">Reservar boleto</button>
         </div>
       </div>
     </article>
   </div>
 
-  <div class="thumbnail" #thumbnailBorder>
+  <div class="carousel-thumbnails" #thumbnailBorder>
     <div 
-      class="item" 
+      class="thumbnail-item" 
       *ngFor="let item of items; let i = index" 
       [class.active]="i === currentIndex"
       (click)="goToSlide(i)">
       
-      <img [src]="item.img" [alt]="item.author" loading="lazy">
-      <div class="content">
-        <h4 class="title">{{item.title}}</h4>
-        <p class="description">{{item.topic}}</p>
+      <img [src]="item.img" [alt]="item.author" loading="lazy" class="thumbnail-image">
+      <div class="thumbnail-content">
+        <h4 class="thumbnail-title">{{item.title}}</h4>
+        <p class="thumbnail-description">{{item.topic}}</p>
       </div>
     </div>
   </div>
 
-  <div class="arrows">
-    <button class="prev" (click)="prevSlide()">‹</button>
-    <button class="next" (click)="nextSlide()">›</button>
+  <div class="carousel-controls">
+    <button class="control-prev" (click)="prevSlide()" aria-label="Slide anterior">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" fill="currentColor"/>
+      </svg>
+    </button>
+    <button class="control-next" (click)="nextSlide()" aria-label="Slide siguiente">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 
-  <div class="time"></div>
+  <div class="carousel-progress"></div>
+  
+  <!-- Indicadores para móviles -->
+  <div class="carousel-indicators">
+    <span 
+      *ngFor="let item of items; let i = index" 
+      [class.active]="i === currentIndex"
+      (click)="goToSlide(i)">
+    </span>
+  </div>
 </div>

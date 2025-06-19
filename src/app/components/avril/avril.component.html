@@ -1,7 +1,8 @@
 <div class="event-container">
   <div class="event-info">
-    <img src='assets/image/img1.png' alt="Darihus en concierto" class="event-image">
+    <img src='assets/image/img1.png' alt="Evento" class="event-image">
     <h2>{{eventDetails.title}}</h2>
+    
     <div class="event-details">
       <p><strong>Fecha:</strong> {{ eventDate }}</p>
       <p><strong>Hora:</strong> {{ eventTime }}</p>
@@ -10,7 +11,6 @@
       <p>{{ eventDetails.description }}</p>
     </div>
 
-    <!-- SECCIÓN PARA SELECCIONAR TIPO DE BOLETO -->
     <div class="ticket-selection">
       <label for="ticketType"><strong>Selecciona el tipo de boleto:</strong></label>
       <select id="ticketType" [(ngModel)]="selectedTicketType" (change)="updatePrice()">
@@ -19,19 +19,18 @@
         </option>
       </select>
 
-      <p>Has apartado el boleto tipo <strong>{{selectedTicketType}}</strong> con el folio <span class="ticket-count">{{ticketFolio}}</span> por el precio de $<span class="total-price">{{getTotalPrice()}}</span> MXN</p>
+      <p class="ticket-summary">Has apartado el boleto tipo <strong>{{selectedTicketType}}</strong> con el folio <span class="ticket-count">{{ticketFolio}}</span> por el precio de $<span class="total-price">{{getTotalPrice()}}</span> MXN</p>
       <button class="purchase-button" (click)="generateTicket()">COMPRAR BOLETOS</button>
     </div>
   </div>
 
-  <!-- Vista previa del boleto -->
   <div class="ticket-preview">
     <div class="ticket">
       <div class="ticket-header">
         <span class="ticket-folio">Folio: {{ticketFolio}}</span>
       </div>
       <div class="ticket-content">
-        <img src='assets/image/img1.png' alt="Darihus" class="ticket-image">
+        <img src='assets/image/img1.png' alt="Evento" class="ticket-image">
         <div class="ticket-details">
           <h3>{{eventDetails.title}}</h3>
           <p><strong>Fecha:</strong> {{ eventDate }}</p>
