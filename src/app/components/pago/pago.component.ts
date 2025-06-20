@@ -106,7 +106,7 @@ export class PagoComponent implements OnInit, OnDestroy {
 
       console.log('Enviando payload al backend:', payload);
 
-      const response = await fetch('http://localhost:3333/api/checkout', {
+      const response = await fetch('https://osmipass-api.onrender.com/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
