@@ -100,9 +100,10 @@ export class PagoComponent implements OnInit, OnDestroy {
           folio: this.ticketData.folio,
           event: this.ticketData.event.title,
           venue: this.ticketData.event.venue,
-          date: this.ticketData.event.date
-        }
-      };
+          date: this.ticketData.event.date,
+          ticketType: this.ticketData.type
+  }
+};
 
       console.log('Enviando payload al backend:', payload);
 
