@@ -29,9 +29,9 @@ export class BoleteraComponent implements AfterViewInit, OnDestroy {
     {
       id: 1,
       img: 'assets/image/img1.png',
-      author: 'Darihus',
+      author: 'Berrinche',
       title: 'Evento urbano',
-      topic: 'Rap',
+      topic: 'Alternativo, Pop y Rap',
       description: 'El mejor evento de artistas urbanos en vivo con inicio y cierre del artista estelar Darihus',
       route: '/avril'
     },
@@ -39,7 +39,7 @@ export class BoleteraComponent implements AfterViewInit, OnDestroy {
       id: 2,
       img: 'assets/image/img2.jpg',
       author: 'evento pasado',
-      title: 'Street Festival IV',
+      title: 'Street Festival II',
       topic: 'Eventos pasados',
       description: '¿Quieres un autógrafo de ellos? Nadie como DSM familia para acercarte a tus artistas favoritos.',
       route: '/ckan'
@@ -47,10 +47,10 @@ export class BoleteraComponent implements AfterViewInit, OnDestroy {
     {
       id: 3,
       img: 'assets/image/img3.png',
-      author: 'Defra',
-      title: 'Próximamente',
+      author: 'evento pasado',
+      title: 'Iluminatik',
       topic: 'Artista',
-      description: 'Defra, el MC que viene con fuerza desde el subterráneo.',
+      description: 'Iluminatik',
       route: '/defra'
     },
     {
@@ -58,8 +58,8 @@ export class BoleteraComponent implements AfterViewInit, OnDestroy {
       img: 'assets/image/img4.jpg',
       author: 'Osmarha',
       title: 'Próximamente',
-      topic: 'Idol',
-      description: 'Osmarha es la nueva sensación con una voz que despierta multitudes.',
+      topic: 'Tren lokote',
+      description: 'no te olvides de reservar tu lugar en la pagina para estar de cerca con tren lokote.',
       route: '/osmarha'
     }
   ];
