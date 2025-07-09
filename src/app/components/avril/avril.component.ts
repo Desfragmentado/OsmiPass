@@ -14,10 +14,10 @@ export class AvrilComponent {
   ticketFolio: string = this.generateRandomFolio();
 
   ticketOptions = [
-    { type: 'General', label: 'General', price: 300 },
-    { type: 'VIP + MeetAndGreet', label: 'Meet and Greet', price: 750 },
+    { type: 'General', label: 'General', price: 500 },
+    { type: 'VIP + MeetAndGreet', label: 'Meet and Greet', price: 850 },
     { type: 'VIP', label: 'VIP', price: 500 },
-    { type: 'VIP + MeetAndGreet + After', label: 'VIP + MeetAndGreet + After', price: 1000 },
+    { type: 'VIP + MeetAndGreet + After', label: 'VIP + MeetAndGreet + After', price: 1250 },
   ];
 
   // Inicialización basada en el primer ticketOption para flexibilidad futura
@@ -25,10 +25,10 @@ export class AvrilComponent {
   ticketPrice: number = this.ticketOptions[0].price;
 
   eventDetails = {
-    title: 'Festival Music III',
-    date: '28/06/2025 17:00',
-    venue: 'Donato Guerra #2005, Col. Miguel Hidalgo, Zapopan, Jalisco.',
-    price: '$300 MXN',
+    title: 'Berrinche',
+    date: '16/11/2025 17:00',
+    venue: 'Prol. Bernardo Quintana 165, 76060 Santiago de Querétaro, Querétaro',
+    price: '$500 MXN',
     description: 'Mejor evento de artistas urbanos con invitados especiales de lujo'
   };
 
@@ -38,9 +38,9 @@ export class AvrilComponent {
       const eventData = navigation.extras.state['eventData'];
       this.eventDetails = {
         title: `${eventData.author} ${eventData.title}`,
-        date: '28/06/2025 17:00',
-        venue: 'Donato Guerra #2005, Col. Miguel Hidalgo, Zapopan, Jalisco.',
-        price: '$300 MXN',
+        date: '16/11/2025 17:00',
+        venue: 'Prol. Bernardo Quintana 165, 76060 Santiago de Querétaro, Querétaro',
+        price: '$850 MXN',
         description: eventData.description
       };
     }
